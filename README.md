@@ -1,7 +1,15 @@
-# create-blog-with-express-and-mogodb
-使用 express ＋ mogodb 搭建多人博客
+# 使用express ＋ mogodb 搭建多人博客
 
-`1、初始化express`
-`express -e create-blog-wite-express-mogodb`
-`cd create-blog-wite-express-mogodb`
+###1. 初始化express
+
+####1.1. 新建Express工程
+
+`npm install -g express-generator`
+`express -e create-blog-with-express-and-mongodb`
+`cd create-blog-with-express-and-mongodb`
 `npm install`
+
+###2. 实现路由控制
+
+index.js内实现路由控制，并在app.js内调用。
+
