@@ -9,6 +9,7 @@ var routes = require('./routes/index');
 //mongodb配置
 var settings=require('./setting');
 
+
 var app = express();
 
 // view engine setup
