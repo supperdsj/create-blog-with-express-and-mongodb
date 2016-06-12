@@ -3,11 +3,12 @@
 ###1. 初始化express
 
 ####1.1. 新建Express工程
-
-`npm install -g express-generator`
-`express -e create-blog-with-express-and-mongodb`
-`cd create-blog-with-express-and-mongodb`
-`npm install`
+```
+npm install -g express-generator
+express -e create-blog-with-express-and-mongodb
+cd create-blog-with-express-and-mongodb
+npm install
+```
 
 ###2. 实现路由控制
 
