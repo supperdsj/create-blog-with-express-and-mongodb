@@ -4,8 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+//路由控制
 var routes = require('./routes/index');
+//mongodb配置
+var settings=require('./setting');
 
 var app = express();
 
