@@ -41,3 +41,6 @@ npm install connect-mongo --save
 npm install connect-flash --save
 ```
 并在app.js内添加引用
+
+###7. 实现注册逻辑
+添加user.js实现注册和查找用户,并在index.js内的reg.post内实现注册。
