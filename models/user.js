@@ -35,7 +35,7 @@ User.prototype.save = function (callback) {
                     return callback(err);
                 } else {
                     //回调
-                    callback(null, user[0]);
+                    callback(null, user.ops[0]);
                 }
             })
         })

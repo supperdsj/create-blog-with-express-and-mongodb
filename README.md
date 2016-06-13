@@ -43,4 +43,5 @@ npm install connect-flash --save
 并在app.js内添加引用
 
 ###7. 实现注册逻辑
-添加user.js实现注册和查找用户,并在index.js内的reg.post内实现注册。
+添加user.js实现注册和查找用户,并在index.js内的/reg.post内实现注册。
+在/.get和/reg.get内发送用户信息、成功/失败信息,并修改header.ejs显示上述信息。

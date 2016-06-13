@@ -1,7 +1,3 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/create-blog-with-express-and-mongodb.iml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/workspace.xml
 node_modules/
+.idea/
