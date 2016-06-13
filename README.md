@@ -32,3 +32,6 @@ npm install mongodb --save
 npm install express-session --save
 npm install connect-mongo --save
 ```
+
+###5. 添加ejs模板页
+添加index.ejs、login.ejs、reg.ejs并提取footer.ejs、header.ejs
