@@ -35,3 +35,9 @@ npm install connect-mongo --save
 
 ###5. 添加ejs模板页
 添加index.ejs、login.ejs、reg.ejs并提取footer.ejs、header.ejs
+
+###6. 引入connect-flash模块
+```
+npm install connect-flash --save
+```
+并在app.js内添加引用
