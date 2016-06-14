@@ -51,3 +51,6 @@ npm install connect-flash --save
 
 ###9. 添加页面权限控制
 在index.js内添加checkLogin和checkNotLogin中间件。
+
+###10. 实现文章发表和文章查看
+添加post.ejs模板,添加post.js实现发布文章和查找文章,并在index.js内进行相应调用

@@ -1,5 +1,7 @@
 var crypto = require('crypto');
+
 User = require('../models/user');
+Post = require('../models/post');
 
 module.exports = function (app) {
 
@@ -12,11 +14,18 @@ module.exports = function (app) {
     app.get('/logout', checkLogin);
 
     app.get('/', function (req, res) {
-        res.render('index', {
-            title: '主页',
-            user: req.session.user,
-            success: req.flash('success').toString(),
-            error: req.flash('error').toString()
+        Post.get(null,function(err,posts){
+           if(err){
+               posts=[];
+           }
+
+            res.render('index', {
+                title: '主页',
+                user: req.session.user,
+                posts:posts,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
         });
     });
     app.get('/reg', function (req, res) {
@@ -103,6 +112,17 @@ module.exports = function (app) {
         });
     });
     app.post('/post', function (req, res) {
+        var currentUser = req.session.user,
+            post = new Post(currentUser.name, req.body.title, req.body.post);
+        post.save(function (err) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/');
+            } else {
+                req.flash('success', '发布成功!');
+                res.redirect('/');
+            }
+        })
     });
     app.get('/logout', function (req, res) {
         req.session.user = null;
