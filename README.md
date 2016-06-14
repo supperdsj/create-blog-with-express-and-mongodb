@@ -60,3 +60,10 @@ npm install connect-flash --save
 npm install markdown --save
 '''
 在post.js内引入markdown,并在Post.get方法内解析markdown语法为html
+
+###12. 添加文件上传功能
+```
+npm install multer --save
+```
+添加upload.ejs模板页,并添加对应的/upload.get和/upload.post。
+在index.js内引用multer模块,并在/upload.post内处理文件上传请求。upload.ejs内form的enctype必须为multipart/form-data,index.js内的storage变量内通过multer.diskStorage指定了存储图片的路径和文件名。

@@ -1,5 +1,18 @@
 var crypto = require('crypto');
 
+//https://github.com/expressjs/multer
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images/multer');
+    },
+    filename: function (req, file, cb) {
+        console.log(file);
+        cb(null, file.originalname);
+    }
+});
+var upload = multer({ storage: storage }).array('files');
+
 User = require('../models/user');
 Post = require('../models/post');
 
@@ -12,17 +25,18 @@ module.exports = function (app) {
     app.get('/post', checkLogin);
     app.post('/post', checkLogin);
     app.get('/logout', checkLogin);
-
+    app.get('/upload', checkLogin);
+    app.post('/upload', checkLogin);
     app.get('/', function (req, res) {
-        Post.get(null,function(err,posts){
-           if(err){
-               posts=[];
-           }
+        Post.get(null, function (err, posts) {
+            if (err) {
+                posts = [];
+            }
 
             res.render('index', {
                 title: '主页',
                 user: req.session.user,
-                posts:posts,
+                posts: posts,
                 success: req.flash('success').toString(),
                 error: req.flash('error').toString()
             });
@@ -123,6 +137,26 @@ module.exports = function (app) {
                 res.redirect('/');
             }
         })
+    });
+    app.get('/upload', function (req, res) {
+        res.render('upload', {
+            title: '上传文件',
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        })
+    });
+    app.post('/upload', function (req, res) {
+        upload(req, res, function (err) {
+            if (err) {
+                console.log(err);
+                req.flash('error', '文件上传失败');
+            } else {
+                console.log(req.body);
+                req.flash('success', '文件上传成功');
+            }
+            res.redirect('/upload');
+        });
     });
     app.get('/logout', function (req, res) {
         req.session.user = null;

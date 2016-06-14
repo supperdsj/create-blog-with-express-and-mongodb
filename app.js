@@ -25,10 +25,9 @@ app.use(session({
         // db: settings.db,
         // host: settings.host,
         // port: settings.port
-        url:settings.url
+        url: settings.url
     })
 }));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
