@@ -48,3 +48,6 @@ npm install connect-flash --save
 
 ###8. 实现登录登出逻辑
 在/login.post内实现登录,在/logout.get内实现登出。
+
+###9. 添加页面权限控制
+在index.js内添加checkLogin和checkNotLogin中间件。
