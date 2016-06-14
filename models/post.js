@@ -2,6 +2,7 @@
  * Created by dongsj on 16/6/14.
  */
 var mongodb = require('./db');
+var markdown = require('markdown').markdown;
 
 module.exports = Post;
 
@@ -52,26 +53,30 @@ Post.prototype.save = function (callback) {
 };
 
 //读取文章信息
-Post.get=function(name,callback){
-    mongodb.open(function(err,db){
-        if(err){
+Post.get = function (name, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
             return callback(err);
         }
-        db.collection('posts',function(err,collection){
-            if(err){
+        db.collection('posts', function (err, collection) {
+            if (err) {
                 mongodb.close();
                 return callback(err);
             }
-            var query={};
-            if(name){
-                query.name=name;
+            var query = {};
+            if (name) {
+                query.name = name;
             }
-            collection.find(query).sort({time:-1}).toArray(function(err,docs){
+            collection.find(query).sort({time: -1}).toArray(function (err, docs) {
                 mongodb.close();
-                if(err){
+                if (err) {
                     return callback(err);
                 }
-                callback(null,docs);
+                //解析markdown
+                docs.forEach(function(doc){
+                    doc.post=markdown.toHTML(doc.post);
+                });
+                callback(null, docs);
             })
         })
     })

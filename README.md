@@ -54,3 +54,9 @@ npm install connect-flash --save
 
 ###10. 实现文章发表和文章查看
 添加post.ejs模板,添加post.js实现发布文章和查找文章,并在index.js内进行相应调用
+
+###11. 使文章支持markdown
+'''
+npm install markdown --save
+'''
+在post.js内引入markdown,并在Post.get方法内解析markdown语法为html
