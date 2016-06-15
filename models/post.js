@@ -109,3 +109,83 @@ Post.getOne = function (name, day, title, callback) {
         })
     })
 };
+//编辑文章
+Post.edit = function (name, day, title, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            var query = {
+                'name': name,
+                'time.day': day,
+                'title': title
+            };
+            collection.findOne(query, function (err, doc) {
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                //解析markdown
+                doc.post = markdown.toHTML(doc.post);
+                callback(null, doc);
+            })
+        })
+    })
+};
+//更新文章
+Post.update=function(name,day,title,post,callback){
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            var query = {
+                'name': name,
+                'time.day': day,
+                'title': title
+            };
+            collection.update(query, {$set:{post:post}},function (err) {
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                callback(null);
+            })
+        })
+    })
+};
+//删除文章
+Post.remove=function(name,day,title,callback){
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            var query = {
+                'name': name,
+                'time.day': day,
+                'title': title
+            };
+            collection.remove(query, {w:1},function (err) {
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                callback(null);
+            })
+        })
+    })
+};

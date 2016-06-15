@@ -71,3 +71,6 @@ npm install multer --save
 ###13. 实现用户页面和文章页面
 修改post.js内的Post.get为Post.getAll获取全部文章,并添加Post.getOne获取一篇文章。
 在index.js内添加/u/:name.get和/u/:name/:day/:title.get来处理用户页面和文章页面的请求,添加user.ejs和article.ejs作为用户页面和文章页面的模板。
+
+###14. 实现编辑删除文章
+在post.js的Post.update和Post.remove方法,并在index.js内添加/edit/:name/:day/:title.get、/edit/:name/:day/:title.post和/remove/:name/:day/:title.get处理编辑和删除相关请求,修改article.ejs添加编辑和删除按钮,添加edit.ejs模板页实现编辑功能
