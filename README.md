@@ -67,3 +67,7 @@ npm install multer --save
 ```
 添加upload.ejs模板页,并添加对应的/upload.get和/upload.post。
 在index.js内引用multer模块,并在/upload.post内处理文件上传请求。upload.ejs内form的enctype必须为multipart/form-data,index.js内的storage变量内通过multer.diskStorage指定了存储图片的路径和文件名。
+
+###13. 实现用户页面和文章页面
+修改post.js内的Post.get为Post.getAll获取全部文章,并添加Post.getOne获取一篇文章。
+在index.js内添加/u/:name.get和/u/:name/:day/:title.get来处理用户页面和文章页面的请求,添加user.ejs和article.ejs作为用户页面和文章页面的模板。

@@ -42,22 +42,22 @@ User.prototype.save = function (callback) {
     })
 };
 //读取用户信息
-User.get=function(name,callback){
-    mongodb.open(function(err,db){
-        if(err){
+User.get = function (name, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
             return callback(err);
         }
-        db.collection('users',function(err,collection){
-            if(err){
+        db.collection('users', function (err, collection) {
+            if (err) {
                 mongodb.close();
                 return callback(err);
             }
-            collection.findOne({name:name},function(err,user){
+            collection.findOne({name: name}, function (err, user) {
                 mongodb.close();
-                if(err){
+                if (err) {
                     return callback(err);
-                }else{
-                    callback(null,user);
+                } else {
+                    callback(null, user);
                 }
             })
         })

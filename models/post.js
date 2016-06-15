@@ -53,7 +53,7 @@ Post.prototype.save = function (callback) {
 };
 
 //读取文章信息
-Post.get = function (name, callback) {
+Post.getAll = function (name, callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -73,8 +73,38 @@ Post.get = function (name, callback) {
                     return callback(err);
                 }
                 //解析markdown
-                docs.forEach(function(doc){
-                    doc.post=markdown.toHTML(doc.post);
+                docs.forEach(function (doc) {
+                    doc.post = markdown.toHTML(doc.post);
+                });
+                callback(null, docs);
+            })
+        })
+    })
+};
+//读取文章信息*1
+Post.getOne = function (name, day, title, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            var query = {
+                'name':name,
+                'time.day':day,
+                'title':title
+            };
+            collection.findOne(query,function (err, docs) {
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                //解析markdown
+                docs.forEach(function (doc) {
+                    doc.post = markdown.toHTML(doc.post);
                 });
                 callback(null, docs);
             })
