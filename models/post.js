@@ -93,20 +93,18 @@ Post.getOne = function (name, day, title, callback) {
                 return callback(err);
             }
             var query = {
-                'name':name,
-                'time.day':day,
-                'title':title
+                'name': name,
+                'time.day': day,
+                'title': title
             };
-            collection.findOne(query,function (err, docs) {
+            collection.findOne(query, function (err, doc) {
                 mongodb.close();
                 if (err) {
                     return callback(err);
                 }
                 //解析markdown
-                docs.forEach(function (doc) {
-                    doc.post = markdown.toHTML(doc.post);
-                });
-                callback(null, docs);
+                doc.post = markdown.toHTML(doc.post);
+                callback(null, doc);
             })
         })
     })
