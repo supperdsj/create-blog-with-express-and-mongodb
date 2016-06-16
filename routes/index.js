@@ -1,5 +1,9 @@
 var crypto = require('crypto');
 
+var User = require('../models/user');
+var Post = require('../models/post');
+var Comment=require('../models/comment');
+
 //https://github.com/expressjs/multer
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -13,8 +17,6 @@ var storage = multer.diskStorage({
 });
 var upload = multer({storage: storage}).array('files');
 
-User = require('../models/user');
-Post = require('../models/post');
 
 module.exports = function (app) {
 
@@ -71,7 +73,7 @@ module.exports = function (app) {
             email: req.body.email
         });
         //检查用户是否已存在
-        User.getAll(newUser.name, function (err, user) {
+        User.get(newUser.name, function (err, user) {
             if (err) {
                 req.flash('error', err);
                 return res.redirect('/');
@@ -195,6 +197,27 @@ module.exports = function (app) {
                 success: req.flash('success').toString(),
                 error: req.flash('error').toString()
             })
+        })
+    });
+    app.post('/u/:name/:day/:title', function (req, res) {
+        var date=new Date(),
+            time=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+(date.getMinutes()<10?('0'+date.getMinutes()):date.getMinutes());
+        var comment={
+            name:req.body.name,
+            email:req.body.email,
+            website:req.body.website,
+            time:time,
+            content:req.body.content
+        };
+        var newComment=new Comment(req.params.name,req.params.day,req.params.title,comment);
+        newComment.save(function(err){
+            if(err){
+                req.flash('error',err);
+                return res.redirect('back');
+            }else{
+                req.flash('success','留言成功!');
+                res.redirect('back');
+            }
         })
     });
     app.get('/edit/:name/:day/:title', function (req, res) {

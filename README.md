@@ -74,3 +74,6 @@ npm install multer --save
 
 ###14. 实现编辑删除文章
 在post.js的Post.update和Post.remove方法,并在index.js内添加/edit/:name/:day/:title.get、/edit/:name/:day/:title.post和/remove/:name/:day/:title.get处理编辑和删除相关请求,修改article.ejs添加编辑和删除按钮,添加edit.ejs模板页实现编辑功能
+
+###15. 实现留言功能
+添加comment.js实现留言功能,添加comment.ejs模板页显示留言并在article.ejs内引用,在index.js内添加/u/:name/:day/:title.post处理留言请求。
