@@ -80,3 +80,6 @@ npm install multer --save
 
 ###16. 添加文章分页功能
 在post.js内添加Post.getTen方法用于显示10条数据,在index.js内修改Post.getAll为Post.getTen显示分页数据,添加paging.ejs用于显示分页功能并于index.ejs和user.ejs内引用。
+
+###17. 添加文章存档页面
+在post.js内添加Post.getArchive获取文章列表,在index.js内添加/archive.get处理存档页,添加archive.ejs作为存档模板页。
