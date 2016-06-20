@@ -27,7 +27,7 @@ Post.prototype.save = function (callback) {
         time: time,
         title: this.title,
         post: this.post,
-        comments:[]
+        comments: []
     };
     mongodb.open(function (err, db) {
         if (err) {
@@ -82,6 +82,39 @@ Post.getAll = function (name, callback) {
         })
     })
 };
+Post.getTen = function (name, page, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            var query = {};
+            if (name) {
+                query.name = name;
+            }
+            collection.count(query, function (err, total) {
+                collection.find(query, {
+                    skip: (page - 1) * 10,
+                    limit: 10
+                }).sort({time: -1}).toArray(function (err, docs) {
+                    mongodb.close();
+                    if (err) {
+                        return callback(err);
+                    }
+                    //解析markdown
+                    docs.forEach(function (doc) {
+                        doc.post = markdown.toHTML(doc.post);
+                    });
+                    callback(null, docs, total);
+                });
+            });
+        })
+    })
+};
 //读取文章信息*1
 Post.getOne = function (name, day, title, callback) {
     mongodb.open(function (err, db) {
@@ -106,7 +139,7 @@ Post.getOne = function (name, day, title, callback) {
                 //解析markdown
                 doc.post = markdown.toHTML(doc.post);
                 doc.comments.forEach(function (comment) {
-                    comment.content=markdown.toHTML(comment.content);
+                    comment.content = markdown.toHTML(comment.content);
                 });
                 callback(null, doc);
             })
@@ -142,7 +175,7 @@ Post.edit = function (name, day, title, callback) {
     })
 };
 //更新文章
-Post.update=function(name,day,title,post,callback){
+Post.update = function (name, day, title, post, callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -157,7 +190,7 @@ Post.update=function(name,day,title,post,callback){
                 'time.day': day,
                 'title': title
             };
-            collection.update(query, {$set:{post:post}},function (err) {
+            collection.update(query, {$set: {post: post}}, function (err) {
                 mongodb.close();
                 if (err) {
                     return callback(err);
@@ -168,7 +201,7 @@ Post.update=function(name,day,title,post,callback){
     })
 };
 //删除文章
-Post.remove=function(name,day,title,callback){
+Post.remove = function (name, day, title, callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -183,7 +216,7 @@ Post.remove=function(name,day,title,callback){
                 'time.day': day,
                 'title': title
             };
-            collection.remove(query, {w:1},function (err) {
+            collection.remove(query, {w: 1}, function (err) {
                 mongodb.close();
                 if (err) {
                     return callback(err);

@@ -77,3 +77,6 @@ npm install multer --save
 
 ###15. 实现留言功能
 添加comment.js实现留言功能,添加comment.ejs模板页显示留言并在article.ejs内引用,在index.js内添加/u/:name/:day/:title.post处理留言请求。
+
+###16. 添加文章分页功能
+在post.js内添加Post.getTen方法用于显示10条数据,在index.js内修改Post.getAll为Post.getTen显示分页数据,添加paging.ejs用于显示分页功能并于index.ejs和user.ejs内引用。
