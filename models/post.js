@@ -29,7 +29,8 @@ Post.prototype.save = function (callback) {
         title: this.title,
         post: this.post,
         tags: this.tags,
-        comments: []
+        comments: [],
+        pv: 0
     };
     mongodb.open(function (err, db) {
         if (err) {
@@ -134,16 +135,25 @@ Post.getOne = function (name, day, title, callback) {
                 'title': title
             };
             collection.findOne(query, function (err, doc) {
-                mongodb.close();
                 if (err) {
+                    mongodb.close();
                     return callback(err);
                 }
-                //解析markdown
-                doc.post = markdown.toHTML(doc.post);
-                doc.comments.forEach(function (comment) {
-                    comment.content = markdown.toHTML(comment.content);
-                });
-                callback(null, doc);
+                if (doc) {
+                    collection.update(query, {$inc: {'pv': 1}}, function (err) {
+                        mongodb.close();
+                        if (err) {
+                            console.log(err);
+                            return callback(err);
+                        }
+                    });
+                    //解析markdown
+                    doc.post = markdown.toHTML(doc.post);
+                    doc.comments.forEach(function (comment) {
+                        comment.content = markdown.toHTML(comment.content);
+                    });
+                    callback(null, doc);
+                }
             })
         })
     })

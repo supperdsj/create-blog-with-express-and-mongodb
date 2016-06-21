@@ -88,3 +88,6 @@ npm install multer --save
 添加标签功能:在post.ejs和edit.ejs内添加输入标签功能,在index.js的/post.post内添加提交时的标签处理,在post.js内进行修改支持提交页面时对标签的处理。
 添加标签页:在header.ejs内添加标签链接,新建post.ejs模板显示标签列表,在index.js内添加/tags.get处理标签列表的显示,在post.js内添加Post.getTags来显示标签。
 添加标签下文章页:在post.js内添加Post.getTag显示特定标签的文章列表,在index.js内添加/tages/:tag.get显示特定标签文章列表,添加tag.ejs作为显示特定标签文章列表的模板页。
+
+###19. 添加pv统计和留言统计
+在post.js内修改Post.prototype.save添加初始化pv:0,在post.js内修改getOne来增加阅读时的pv,在index.ejs、user.ejs和article.ejs内添加pv统计和留言统计的显示。

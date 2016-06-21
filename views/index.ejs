@@ -9,6 +9,7 @@
     <a href="/tags/<%= tag %>" class="tag"><%= tag %></a>
     <% } %>
     <% }) %>
+     | 阅读:<%=post.pv%> | 评论: <%=post.comments.length%>
 </p>
 <p> <%- post.post %></p>
 <% }) %>
