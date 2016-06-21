@@ -91,3 +91,6 @@ npm install multer --save
 
 ###19. 添加pv统计和留言统计
 在post.js内修改Post.prototype.save添加初始化pv:0,在post.js内修改getOne来增加阅读时的pv,在index.ejs、user.ejs和article.ejs内添加pv统计和留言统计的显示。
+
+###20. 添加搜索功能
+在header.ejs内添加搜索form表单,在post.js内添加Post.search使用正则查询标题返回搜索结果,在index.js内添加/search.get响应路由,添加search.ejs作为搜索结果的模板。
