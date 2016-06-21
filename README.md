@@ -83,3 +83,8 @@ npm install multer --save
 
 ###17. 添加文章存档页面
 在post.js内添加Post.getArchive获取文章列表,在index.js内添加/archive.get处理存档页,添加archive.ejs作为存档模板页。
+
+###18. 添加标签功能
+添加标签功能:在post.ejs和edit.ejs内添加输入标签功能,在index.js的/post.post内添加提交时的标签处理,在post.js内进行修改支持提交页面时对标签的处理。
+添加标签页:在header.ejs内添加标签链接,新建post.ejs模板显示标签列表,在index.js内添加/tags.get处理标签列表的显示,在post.js内添加Post.getTags来显示标签。
+添加标签下文章页:在post.js内添加Post.getTag显示特定标签的文章列表,在index.js内添加/tages/:tag.get显示特定标签文章列表,添加tag.ejs作为显示特定标签文章列表的模板页。

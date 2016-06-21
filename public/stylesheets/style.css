@@ -89,6 +89,7 @@ article a:hover {
     text-decoration: none;
     background-color: #f00;
     color: #f9f9f9;
+    -webkit-transition: color .2s linear;
     transition: color .2s linear;
 }
 
@@ -106,4 +107,22 @@ article a:hover {
     font-size: 14px;
     color: #999999;
     margin-right: 1.2em;
+}
+
+.tag {
+    background-color: #f00;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #ffffff;
+    display: inline-block;
+    padding: 0 5px;
+    margin-bottom: 8px;
+}
+
+.tag:hover {
+    text-decoration: none;
+    background-color: #fff;
+    color: #000;
+    -webkit-transition: color .2s linear;
+    transition: color .2s linear;
 }

@@ -6,10 +6,11 @@ var markdown = require('markdown').markdown;
 
 module.exports = Post;
 
-function Post(name, title, post) {
+function Post(name, title, tags, post) {
     this.name = name;
     this.title = title;
     this.post = post;
+    this.tags = tags;
 }
 
 Post.prototype.save = function (callback) {
@@ -27,6 +28,7 @@ Post.prototype.save = function (callback) {
         time: time,
         title: this.title,
         post: this.post,
+        tags: this.tags,
         comments: []
     };
     mongodb.open(function (err, db) {
@@ -147,22 +149,65 @@ Post.getOne = function (name, day, title, callback) {
     })
 };
 //获取文章列表
-Post.getArchive=function(callback){
-    mongodb.open(function(err,db){
-        if(err){
+Post.getArchive = function (callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
             return callback(err);
         }
-        db.collection('posts',function(err,collection){
-            if(err){
+        db.collection('posts', function (err, collection) {
+            if (err) {
                 mongodb.close();
                 return callback(err);
             }
-            collection.find({},{'name':1,'time':1,'title':1}).sort({time:-1}).toArray(function (err,docs) {
+            collection.find({}, {'name': 1, 'time': 1, 'title': 1}).sort({time: -1}).toArray(function (err, docs) {
                 mongodb.close();
-                if(err){
+                if (err) {
                     return callback(err);
                 }
-                callback(null,docs);
+                callback(null, docs);
+            })
+        })
+    })
+};
+
+//读取标签信息
+Post.getTags = function (callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            //用distinct显示不重复的结果
+            collection.distinct('tags', function (err, docs) {
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, docs);
+            })
+        })
+    })
+};
+Post.getTag = function (tag, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            collection.find({tags: tag}, {name: 1, time: 1, title: 1}).sort({time: -1}).toArray(function (err, docs) {
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, docs);
             })
         })
     })
