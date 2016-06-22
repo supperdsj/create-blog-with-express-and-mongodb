@@ -1,6 +1,11 @@
 <%- include header %>
 <% posts.forEach(function(post, index){ %>
-<p><h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2></p>
+<p>
+<h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
+<a href="/u/<%= post.name %>">
+    <img src="<%= post.head %>" class="r_head">
+</a>
+</p>
 <p class="info">
     作者: <a href="/u/<%= post.name %>"><%= post.name %></a> | 日期: <%= post.time.minute %> |
     标签:
@@ -9,11 +14,11 @@
     <a href="/tags/<%= tag %>" class="tag"><%= tag %></a>
     <% } %>
     <% }) %>
-    | 阅读:<%=post.pv%> | 评论: <%=post.comments.length%>
+    | 阅读:<%= post.pv %> | 评论: <%= post.comments.length %>
 </p>
 <p>
     <%- post.post %>
 </p>
 <% }) %>
-<%- include paging%>
+<%- include paging %>
 <%- include footer %>

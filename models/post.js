@@ -6,11 +6,12 @@ var markdown = require('markdown').markdown;
 
 module.exports = Post;
 
-function Post(name, title, tags, post) {
+function Post(name,head, title, tags, post) {
     this.name = name;
     this.title = title;
     this.post = post;
     this.tags = tags;
+    this.head = head;
 }
 
 Post.prototype.save = function (callback) {
@@ -29,6 +30,7 @@ Post.prototype.save = function (callback) {
         title: this.title,
         post: this.post,
         tags: this.tags,
+        head: this.head,
         comments: [],
         pv: 0
     };

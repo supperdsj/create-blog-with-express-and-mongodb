@@ -100,3 +100,6 @@ npm install multer --save
 
 ###22. 添加404页面
 添加404.ejs显示404页面,在index.js内添加对没有找到页面的处理。
+
+###23. 添加用户头像
+在user.js内对User.prototype.save进行修改来生成随机头像,在index.js内修改/post.post显示头像,修改index.ejs和user.ejs来显示头像,修改index.js内的/u/:name/:day/:title.post来为没有头像的用户显示头像,修改comment.ejs显示头像。
