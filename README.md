@@ -94,3 +94,6 @@ npm install multer --save
 
 ###20. 添加搜索功能
 在header.ejs内添加搜索form表单,在post.js内添加Post.search使用正则查询标题返回搜索结果,在index.js内添加/search.get响应路由,添加search.ejs作为搜索结果的模板。
+
+###21. 添加友情链接
+在header.ejs内添加友情链接的链接,新建links.ejs作为友情链接的模板页,在index.js内实现友情链接的路由/links.get。
