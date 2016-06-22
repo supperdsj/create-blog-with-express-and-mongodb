@@ -11,7 +11,6 @@ var storage = multer.diskStorage({
         cb(null, './public/images/multer');
     },
     filename: function (req, file, cb) {
-        console.log(file);
         cb(null, file.originalname);
     }
 });
@@ -37,7 +36,6 @@ module.exports = function (app) {
             if (err) {
                 posts = [];
             }
-            console.log(page);
             res.render('index', {
                 title: '主页',
                 user: req.session.user,
@@ -63,7 +61,6 @@ module.exports = function (app) {
             password = req.body.password,
             password_re = req.body['password-repaeat'];
         if (password == password_re) {
-            console.log('两次密码输入不一致');
             req.flash('error', '两次密码输入不一致');
             return res.redirect('/reg');
         }
@@ -88,13 +85,11 @@ module.exports = function (app) {
             //不存在就新增账户
             newUser.save(function (err, user) {
                 if (err) {
-                    console.log(err);
                     req.flash('error', err);
                     return res.redirect('/reg');
                 }
                 //存入session
                 req.session.user = user;
-                console.log(req.session.user);
                 req.flash('success', '注册成功!');
                 res.redirect('/');
             });
@@ -158,10 +153,8 @@ module.exports = function (app) {
     app.post('/upload', function (req, res) {
         upload(req, res, function (err) {
             if (err) {
-                console.log(err);
                 req.flash('error', '文件上传失败');
             } else {
-                console.log(req.body);
                 req.flash('success', '文件上传成功');
             }
             res.redirect('/upload');
@@ -179,7 +172,6 @@ module.exports = function (app) {
                     req.flash('error', err);
                     return res.redirect('/');
                 }
-                console.log(page);
                 res.render('user', {
                     title: user.name,
                     posts: posts,

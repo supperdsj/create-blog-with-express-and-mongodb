@@ -143,7 +143,6 @@ Post.getOne = function (name, day, title, callback) {
                     collection.update(query, {$inc: {'pv': 1}}, function (err) {
                         mongodb.close();
                         if (err) {
-                            console.log(err);
                             return callback(err);
                         }
                     });
