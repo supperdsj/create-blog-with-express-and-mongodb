@@ -334,6 +334,9 @@ module.exports = function (app) {
         req.flash('success', '登出成功!');
         res.redirect('/');
     });
+    app.use(function(req,res){
+        res.render('404');
+    })
 };
 function checkLogin(req, res, next) {
     if (!req.session.user) {

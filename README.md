@@ -97,3 +97,6 @@ npm install multer --save
 
 ###21. 添加友情链接
 在header.ejs内添加友情链接的链接,新建links.ejs作为友情链接的模板页,在index.js内实现友情链接的路由/links.get。
+
+###22. 添加404页面
+添加404.ejs显示404页面,在index.js内添加对没有找到页面的处理。
