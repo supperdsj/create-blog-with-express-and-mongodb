@@ -103,3 +103,6 @@ npm install multer --save
 
 ###23. 添加用户头像
 在user.js内对User.prototype.save进行修改来生成随机头像,在index.js内修改/post.post显示头像,修改index.ejs和user.ejs来显示头像,修改index.js内的/u/:name/:day/:title.post来为没有头像的用户显示头像,修改comment.ejs显示头像。
+
+###24. 添加日志
+在app.js内添加日志打印到access.log和error.log。

@@ -12,6 +12,10 @@ var routes = require('./routes/index');
 //mongodb配置
 var settings = require('./setting');
 
+var fs = require('fs');
+var accessLog = fs.createWriteStream('access.log', {flags: 'a'});
+var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
+
 var app = express();
 
 //使用session
@@ -40,9 +44,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 routes(app);
+
+//保存日志
+app.use(function (err, req, res, next) {
+    var meta = '[' + new Date() + ']' + req.url + '\n';
+    errorLog.write(meta + err.stack + '\n');
+    next();
+});
+app.use(logger({stream: accessLog}));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
